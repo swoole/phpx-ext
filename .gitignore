@@ -1,0 +1,9 @@
+/vendor/
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/lib
+/.idea
+/Makefile
+/src/extension_arginfo.h
+/composer.lock

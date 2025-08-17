@@ -1,0 +1,53 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Symfony\Component\Console\Application;
+use Phpx\Command\BuildCommand;
+use Phpx\Command\SetupCommand;
+use Phpx\Command\EnableCommand;
+use Phpx\Command\DisableCommand;
+
+/*
+ * This file is part of PHPX.
+ * Author: Tianfeng Han <rango@swoole.com>
+ */
+
+(static function (): void {
+    if (version_compare(PHP_VERSION, '8.0.0', '<')) {
+        fwrite(STDERR, "PHPX must be running on version 8.0 or higher\n");
+        exit(1);
+    }
+})();
+
+(static function (): void {
+    function findComposerAutoload($startDir = __DIR__, $maxDepth = 10)
+    {
+        $path = $startDir . '/vendor/autoload.php';
+        if (file_exists($path)) {
+            return $path;
+        }
+        if ($maxDepth <= 0 || dirname($startDir) === $startDir) {
+            throw new RuntimeException(
+                    'Could not find composer autoload.php in ' . $startDir . ' or its parent directories up to maximum depth'
+            );
+        }
+        return findComposerAutoload(dirname($startDir), $maxDepth - 1);
+    }
+
+    $file = findComposerAutoload();
+    if (null === $file) {
+        throw new RuntimeException('Unable to locate autoload.php file.');
+    }
+    require_once $file;
+})();
+
+require __DIR__ . '/../phpx/vendor/autoload.php';
+
+$application = new Application();
+$application->add(new BuildCommand());
+$application->add(new SetupCommand());
+$application->add(new DisableCommand());
+$application->add(new EnableCommand());
+$application->run();
