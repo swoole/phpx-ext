@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(phpx)
+project(phpx_ext)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -9,7 +9,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif ()
 
 set(php_dir "" CACHE STRING "Set the root directory of PHP")
-if (DEFINED php_dir)
+if (php_dir)
     set(PHP_CONFIG "${php_dir}/bin/php-config")
 else ()
     set(PHP_CONFIG "php-config")
@@ -17,7 +17,7 @@ endif()
 
 execute_process(COMMAND ${PHP_CONFIG} --includes OUTPUT_VARIABLE PHP_INCLUDES OUTPUT_STRIP_TRAILING_WHITESPACE  RESULT_VARIABLE PHP_CONFIG_RESULT)
 if (NOT PHP_CONFIG_RESULT EQUAL 0)
-    message(FATAL_ERROR "Failed to execute php-config: ${PHP_CONFIG_RESULT}")
+    message(FATAL_ERROR "Failed to execute ${PHP_CONFIG}: ${PHP_CONFIG_RESULT}")
 endif()
 
 execute_process(COMMAND ${PHP_CONFIG} --extension-dir OUTPUT_VARIABLE PHP_EXTENSION_DIR OUTPUT_STRIP_TRAILING_WHITESPACE RESULT_VARIABLE PHP_CONFIG_RESULT)
