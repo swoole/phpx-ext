@@ -9,7 +9,7 @@ if (NOT CMAKE_BUILD_TYPE)
 endif ()
 
 set(php_dir "" CACHE STRING "Set the root directory of PHP")
-if (DEFINED php_dir)
+if (php_dir)
     set(PHP_CONFIG "${php_dir}/bin/php-config")
 else ()
     set(PHP_CONFIG "php-config")
