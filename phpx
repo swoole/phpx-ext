@@ -43,8 +43,6 @@ use Phpx\Command\DisableCommand;
     require_once $file;
 })();
 
-require __DIR__ . '/../phpx/vendor/autoload.php';
-
 $application = new Application();
 $application->add(new BuildCommand());
 $application->add(new SetupCommand());
