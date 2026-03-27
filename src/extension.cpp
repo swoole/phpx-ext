@@ -1,4 +1,4 @@
-#include "phpx.h"
+#include "phpx_ext.h"
 
 BEGIN_EXTERN_C()
 #include "extension_arginfo.h"
